@@ -1,0 +1,78 @@
+/* editor.component.css */
+.editor-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.editor-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+#editor {
+  flex-grow: 1;
+  height: 100%;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.output-wrapper {
+  padding: 10px;
+ 
+  padding: 10px;
+  /* Dark background for terminal look */
+  border-left: 1px solid #ccc;
+  overflow-y: auto;
+  color: green; /* Light grey text color */
+  font-family: 'Courier New', Courier, monospace; /* Monospaced font */
+  white-space: pre-wrap; /* Wrap text */
+  line-height: 1.4;
+}
+
+pre {
+  height:calc(100% - 25px);
+  margin: 0;
+  background-color: #1e1e1e; /* Same dark background for consistency */
+  border-radius: 5px;
+  overflow-x: auto; /* Ensure horizontal scroll if needed */
+  color: green;
+}
+.controls{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.controls-output{
+  display: flex;
+  justify-content: flex-start;
+}
+.error{
+  color:red;
+}
+.htittle{
+  padding: 0;
+  margin:0;
+}
+.button {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 7px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  border-radius: 5px;
+}

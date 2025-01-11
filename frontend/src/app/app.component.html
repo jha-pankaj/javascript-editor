@@ -1,0 +1,38 @@
+<!--<div class="container">
+  <h1>Monaco Editor Demo</h1>
+  <app-monaco-editor
+    [code]="initialCode"
+    [language]="'typescript'">
+  </app-monaco-editor>
+</div>-->
+
+
+<div class="editor-container">
+  <div class="editor-wrapper">
+    <div class="controls" (click)="runCode()">
+      <h3 class="htittle">Javascipt Editor</h3>
+      <div>
+        <button class="button" >Run</button>
+      </div>
+      
+    </div>
+    <div id="editor">
+      <app-monaco-editor
+    [code]="initialCode"  
+    (changed)='onChanged($event)'
+    [language]="'typescript'">
+   
+  </app-monaco-editor>
+    </div>
+    
+  </div>
+  <div class="output-wrapper">
+    <div class="controls-output"><span>Output</span></div>
+    <pre *ngIf="!error">
+      {{output}}
+    </pre>
+    <pre *ngIf="error" class="error">
+      {{output}}
+    </pre>
+  </div>
+</div>

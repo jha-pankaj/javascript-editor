@@ -1,0 +1,7 @@
+.editor-container {
+  height: calc(100% - 5px);
+  width:auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+}
