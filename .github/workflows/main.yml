@@ -1,0 +1,62 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Install dependencies for backend
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
+
+      # Install dependencies for frontend
+      - name: Install Frontend Dependencies
+        run: |
+          cd frontend
+          npm install
+
+      # Build Angular frontend
+      - name: Build Angular App
+        run: |
+          cd frontend
+          npm run build -- --configuration=production
+
+      # Deploy to AWS EC2 via SSH
+      - name: Deploy to AWS EC2
+        env:
+          AWS_PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+          AWS_HOST: ${{ secrets.AWS_HOST }}
+          AWS_USER: ${{ secrets.AWS_USER }}
+        run: |
+          echo "$AWS_PRIVATE_KEY" > private_key.pem
+          chmod 600 private_key.pem
+
+          ssh -o StrictHostKeyChecking=no -i private_key.pem $AWS_USER@$AWS_HOST << 'EOF'
+            cd /home/ubuntu/app
+            git pull origin main
+            cd backend
+            npm install
+            pm2 restart server
+            cd ../frontend
+            npm install
+            npm run build
+            sudo cp -r dist/* /var/www/html
+            exit
+          EOF
